@@ -7,7 +7,7 @@ import { Api } from '../api.service';
   selector: 'app-forgot',
   imports: [FormsModule, RouterLink],
   template: `
-  <div class="page">
+  <div class="page narrow"><div class="card">
     @if (!token) {
       <h2>Forgot password</h2>
       <input [(ngModel)]="username" placeholder="Username" />
@@ -19,7 +19,7 @@ import { Api } from '../api.service';
     }
     @if (msg) { <p class="ok">{{ msg }}</p> }
     @if (error) { <p class="error">{{ error }}</p> }
-    <p class="center"><a routerLink="/login">Back to login</a></p>
+    <p class="center"><a routerLink="/login">Back to login</a></p></div>
   </div>`
 })
 export class ForgotPage {

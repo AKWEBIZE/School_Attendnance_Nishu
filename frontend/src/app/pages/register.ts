@@ -7,7 +7,7 @@ import { Api } from '../api.service';
   selector: 'app-register',
   imports: [FormsModule, RouterLink],
   template: `
-  <div class="page">
+  <div class="page narrow"><div class="card">
     <h2>New teacher login</h2>
     <form (ngSubmit)="save()">
       <input name="name" [(ngModel)]="f.name" placeholder="Full name" required />
@@ -19,9 +19,9 @@ import { Api } from '../api.service';
       </select>
       <input name="password" [(ngModel)]="f.password" type="password" placeholder="Password (min 6 chars)" required />
       @if (error) { <p class="error">{{ error }}</p> }
-      <p class="center"><button class="primary">Create account</button></p>
+      <p class="center"><button class="primary block">Create account</button></p>
     </form>
-    <p class="center"><a routerLink="/login">Back to login</a></p>
+    <p class="center"><a routerLink="/login">Back to login</a></p></div>
   </div>`
 })
 export class RegisterPage {
