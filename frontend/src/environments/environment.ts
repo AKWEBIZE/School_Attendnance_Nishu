@@ -1,4 +1,4 @@
 export const environment = {
-  // Production API URL – change to your Node app URL on Hostinger
-  apiUrl: 'https://api.tphysiocare.com/api'
+  // Frontend is served by the same Node app, so the API is on the same address.
+  apiUrl: '/api'
 };

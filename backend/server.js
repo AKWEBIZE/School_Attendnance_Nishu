@@ -175,7 +175,11 @@ app.post('/api/circulars', auth, wrap(async (req, res) => {
   res.status(201).json({ ok: true });
 }));
 
-app.get('/', (req, res) => res.send('School API is running. Try /api/health'));
+// Serve the built Angular app (backend/public) and send unknown non-API routes to index.html.
+const path = require('path');
+const publicDir = path.join(__dirname, 'public');
+app.use(express.static(publicDir));
+app.get(/^\/(?!api\/).*/, (req, res) => res.sendFile(path.join(publicDir, 'index.html')));
 
 // Checks the database connection and reports only the error code (no secrets).
 app.get('/api/health/db', async (req, res) => {
