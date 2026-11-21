@@ -175,9 +175,21 @@ app.post('/api/circulars', auth, wrap(async (req, res) => {
   res.status(201).json({ ok: true });
 }));
 
+app.get('/', (req, res) => res.send('School API is running. Try /api/health'));
+
+// Checks the database connection and reports only the error code (no secrets).
+app.get('/api/health/db', async (req, res) => {
+  try {
+    const [rows] = await db.query('SELECT COUNT(*) AS tables FROM information_schema.tables WHERE table_schema = DATABASE()');
+    res.json({ db: 'ok', tables: rows[0].tables });
+  } catch (e) {
+    res.status(500).json({ db: 'error', code: e.code, hostSet: !!process.env.DB_HOST, userSet: !!process.env.DB_USER, nameSet: !!process.env.DB_NAME, passwordSet: !!process.env.DB_PASSWORD });
+  }
+});
+
 app.use((err, req, res, next) => {
   console.error(err);
-  res.status(500).json({ message: 'Server error' });
+  res.status(500).json({ message: 'Server error', code: err.code });
 });
 
 const port = process.env.PORT || 3000;
